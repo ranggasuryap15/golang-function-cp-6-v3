@@ -31,10 +31,25 @@ func ChangeToCurrency(change int) string {
 }
 
 func MoneyChange(money int, listPrice ...int) string {
-	return "" // TODO: replace this
+	change := 0
+	price := 0
+	message := ""
+
+	for i := 0; i < len(listPrice); i++ {
+		price += listPrice[i]
+	}
+
+	if money < price {
+		message = "Uang tidak cukup"
+	} else {
+		change = money - price
+		message = ChangeToCurrency(change)
+	}
+	return message
 }
 
 // gunakan untuk melakukan debug
 func main() {
 	fmt.Println(MoneyChange(100000, 50000, 10000, 10000, 5000, 5000))
+	fmt.Println(MoneyChange(50000, 50000, 10000, 10000, 5000, 5000))
 }
